@@ -1,4 +1,32 @@
-<%
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SOC Record of Consultation</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/SOC_Consultation_Record.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="container">
+                <div class="county_logo" style="text-align: center;">
+            <img src="soc_header.png" />
+        </div>
+
+        <!--<div class='county_logo' style='text-align: center;'><img src='soc_header.png' /></div><br>-->
+        <%
 	if request.querystring("submit") = "2" then
 
             emailsubject = request.form("initial_call_staff_location")
@@ -52,39 +80,15 @@
 			SMTP.LicenseKey = "Commented out for now"
 			x = SMTP.Send
 			if x > 0 then
-				sendstatus = "<font color='red'>There was a problem sending email. The error code is: " & x & "</font>"
+				sendstatus = "<div style='text-align:center;' class='alert alert-danger' role='alert'>There was a problem sending email. The error code is: " & x & "</div>"
 			else
-				sendstatus = "<div style='text-align:center;'>Your message has been sent.<br><br>Click <a href='soc_contact_fancy.asp'>here</a> to send another record.<br><br>Click <a href='http://www.sbcounty.gov/dbh/index.asp'>here</a> to return to the DBH Home Page</div>"
+				sendstatus = "<div style='text-align:center;' class='alert alert-success' role='alert'>Your message has been sent.<br><br>Click <a href='soc_contact.asp'>here</a> "
+                sendstatus = sendstatus & "to send another record.<br><br>Click <a href='http://www.sbcounty.gov/dbh/index.asp'>here</a> to return to the DBH Home Page</div><br>"
 			end if
 			set smtp=Nothing
-	end if
-%>
+    end if
+	if request.querystring("submit")<> "2" then %>
 
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SOC Record of Consultation</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/SOC_Consultation_Record.css" rel="stylesheet">
-    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-</head>
-
-<body>
-    <div class="container">
-        <% if request.querystring("submit")<> "2" then %>
-        <div class="county_logo" style="text-align: center;">
-            <img src="soc_header.png" />
-        </div>
         <form action="soc_contact.asp?submit=2" method="POST">
             <div class="panel panel-default initial_call">
                 <div class="panel-body">
@@ -96,7 +100,7 @@
                         </div>
                         <div class="col-md-3 right_text">Date:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_date" name="initial_call_date" maxlength="50">
+                            <input type="text" id="initial_call_date" name="initial_call_date" maxlength="15" class="soc_date">
                         </div>
                     </div>
                     <div class="row">
@@ -106,21 +110,18 @@
                         </div>
                         <div class="col-md-3 right_text">Time of 1st call to SOC:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_time" name="initial_call_time" maxlength="50">
+                            <input type="text" id="initial_call_time" name="initial_call_time" maxlength="15" class="soc_time">
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-4 left_text">CCRT Field Staff:</div>
                         <div class="col-md-3 left_field">
-                            <select id="initial_call_staff_name" name="initial_call_staff_name">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                            <select id="initial_call_staff_name" name="initial_call_staff_name" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Client's DOB:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_client_dob" name="initial_call_client_dob" maxlength="50">
+                            <input type="text" id="initial_call_client_dob" name="initial_call_client_dob" maxlength="15" class="soc_date">
                         </div>
                     </div>
                     <div class="row">
@@ -133,10 +134,7 @@
                     <div class="row">
                         <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
                         <div class="col-md-3 left_field">
-                            <select id="initial_call_staff_on_phone" name="initial_call_staff_on_phone">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                            <select id="initial_call_staff_on_phone" name="initial_call_staff_on_phone" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-5">&nbsp;</div>
@@ -150,15 +148,12 @@
                     <div class="row">
                         <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
                         <div class="col-md-3 left_field">
-                            <select id="second_call_staff_on_phone" name="second_call_staff_on_phone">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                            <select id="second_call_staff_on_phone" name="second_call_staff_on_phone" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Time of Call:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="second_call_time" name="second_call_time" maxlength="50">
+                            <input type="text" id="second_call_time" name="second_call_time" maxlength="15" class="soc_time">
                         </div>
                     </div>
                     <div class="row">
@@ -184,15 +179,12 @@
                     <div class="row">
                         <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
                         <div class="col-md-3 left_field">
-                            <select id="third_call_staff_on_phone" name="third_call_staff_on_phone">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                            <select id="third_call_staff_on_phone" name="third_call_staff_on_phone" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Time of Call:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="third_call_time" name="third_call_time" maxlength="50">
+                            <input type="text" id="third_call_time" name="third_call_time" maxlength="15" class="soc_time">
                         </div>
                     </div>
                     <div class="row">
@@ -218,15 +210,12 @@
                     <div class="row">
                         <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
                         <div class="col-md-3 left_field">
-                            <select id="disposition_staff_on_phone" name="disposition_staff_on_phone">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                            <select id="disposition_staff_on_phone" name="disposition_staff_on_phone" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Time staff left the scene:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="time_staff_left_scene" name="time_staff_left_scene" maxlength="50">
+                            <input type="text" id="time_staff_left_scene" name="time_staff_left_scene" maxlength="15" class="soc_time">
                         </div>
                     </div>
                     <div class="row">
@@ -243,15 +232,12 @@
                     <div class="row">
                         <div class="col-md-4 left_text">Incident handed off to SOC:</div>
                         <div class="col-md-3 left_field">
-                            <select id="disposition_staff_handed_to" name="disposition_staff_handed_to">
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                                <option value="Last Name, First Name">Name Test</option>
+                            <select id="disposition_staff_handed_to" name="disposition_staff_handed_to" class="selectList">
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Time incident handed off:</div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="time_incident_handed_off" name="time_incident_handed_off" maxlength="50">
+                            <input type="text" id="time_incident_handed_off" name="time_incident_handed_off" maxlength="15" class="soc_time">
                         </div>
                     </div>
                 </div>
@@ -283,38 +269,10 @@
     <script src="js/bootstrap.min.js"></script>
     <script src="js/moment.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
-
-    <script type="text/javascript">
-        $(function () {
-            $('#initial_call_date').datetimepicker({
-                format: 'L'
-            });
-
-            $('#initial_call_time').datetimepicker({
-                format: 'LT'
-            });
-
-            $('#initial_call_client_dob').datetimepicker({
-                format: 'L'
-            });
-
-            $('#second_call_time').datetimepicker({
-                format: 'LT'
-            });
-
-            $('#third_call_time').datetimepicker({
-                format: 'LT'
-            });
-
-            $('#time_staff_left_scene').datetimepicker({
-                format: 'LT'
-            });
-
-            $('#time_incident_handed_off').datetimepicker({
-                format: 'LT'
-            });
-        });
-    </script>
+    <script src="js/dropdown.js"></script>
+    
 </body>
 
 </html>
+
+
