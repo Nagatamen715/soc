@@ -1,41 +1,37 @@
 <%
 	if request.querystring("submit") = "2" then
 
-			sendername = "Test Johnson"
             emailsubject = request.form("initial_call_staff_location")
 
-            emailmessage = "############### Initial Call ###############" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Date: " & request.form("initial_call_date") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Time of 1st call to SOC: " & request.form("initial_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Client Name: " & request.form("initial_call_client_name") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Client's DOB: " & request.form("initial_call_client_dob") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Origin of the call to CCRT: " & request.form("initial_call_origin") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Field Staff: " & request.form("initial_call_staff_name") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Field Staff Location: " & request.form("initial_call_staff_location") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Staff Person on the Phone: " & request.form("initial_call_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############################################" & "<br>" & vbcrlf
+            emailmessage = "<div style='border:1px solid black;'><b><u>Initial Call</u></b>" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Date:</b> " & request.form("initial_call_date") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time of 1st call to SOC:</b> " & request.form("initial_call_time") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Client Name:</b> " & request.form("initial_call_client_name") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Client's DOB:</b> " & request.form("initial_call_client_dob") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Origin of the call to CCRT:</b> " & request.form("initial_call_origin") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Field Staff:</b> " & request.form("initial_call_staff_name") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Field Staff Location:</b> " & request.form("initial_call_staff_location") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("initial_call_staff_on_phone") & "<br></div>" & vbcrlf
             emailmessage = emailmessage & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############### Second  Call ###############" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Staff Person on the Phone: " & request.form("second_call_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Time of Call: " & request.form("second_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Description of Situation: " & request.form("second_call_description") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# SOC Recommendation: " & request.form("second_call_soc_recommendation") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############################################" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Second Call</u></b>" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("second_call_staff_on_phone") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time of Call:</b> " & request.form("second_call_time") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Description of Situation:</b> " & request.form("second_call_description") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>SOC Recommendation:</b> " & request.form("second_call_soc_recommendation") & "<br></div>" & vbcrlf
             emailmessage = emailmessage & "<br>" & vbcrlf
-            emailmessage = emailmessage & "###############  Third Call  ###############" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Staff Person on the Phone: " & request.form("third_call_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Time of Call: " & request.form("third_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Description of Situation: " & request.form("third_call_description") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# SOC Recommendation: " & request.form("third_call_soc_recommendation") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############################################" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Third Call</u></b>" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("third_call_staff_on_phone") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time of Call:</b> " & request.form("third_call_time") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Description of Situation:</b> " & request.form("third_call_description") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>SOC Recommendation:</b> " & request.form("third_call_soc_recommendation") & "<br></div>" & vbcrlf
             emailmessage = emailmessage & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############### Disposition  ###############" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# CCRT Staff Person on the Phone: " & request.form("disposition_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Time staff left the scene: " & request.form("time_staff_left_scene") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Disposition of Client/Incident: " & request.form("disposition_of_client_incident") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Incident handed off to SOC: " & request.form("disposition_staff_handed_to") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "# Time incident handed off: " & request.form("time_incident_handed_off") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "############################################" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Disposition</u></b>" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("disposition_staff_on_phone") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time staff left the scene:</b> " & request.form("time_staff_left_scene") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Disposition of Client/Incident:</b> " & request.form("disposition_of_client_incident") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Incident handed off to SOC:</b> " & request.form("disposition_staff_handed_to") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time incident handed off:</b> " & request.form("time_incident_handed_off") & "<br></div>" & vbcrlf
+  
 
 
 			Set SMTP = CreateObject("EasyMail.SMTP.5")
@@ -44,7 +40,7 @@
 			SMTP.Subject = emailsubject
 			SMTP.BodyText = emailmessage
 			SMTP.BodyFormat = 1
-			SMTP.From = request.form("sendername")
+			'SMTP.From = request.form("sendername")
 			SMTP.FromAddr = "webmaster@dbh.sbcounty.gov"
 
 
@@ -53,12 +49,12 @@
             SMTP.AddRecipient "Benjamin","benjamin.hager@dbh.sbcounty.gov", 1
 			'------------------------------------------------------------
 
-			SMTP.LicenseKey = "San Bernardino County ISD (Single Developer)/00105404104417008f00"
+			SMTP.LicenseKey = "Commented out for now"
 			x = SMTP.Send
 			if x > 0 then
 				sendstatus = "<font color='red'>There was a problem sending email. The error code is: " & x & "</font>"
 			else
-				sendstatus = "<div>Your message has been sent.</div>"
+				sendstatus = "<div style='text-align:center;'>Your message has been sent.<br><br>Click <a href='soc_contact_fancy.asp'>here</a> to send another record.<br><br>Click <a href='http://www.sbcounty.gov/dbh/index.asp'>here</a> to return to the DBH Home Page</div>"
 			end if
 			set smtp=Nothing
 	end if
@@ -73,6 +69,7 @@
     <title>SOC Record of Consultation</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/SOC_Consultation_Record.css" rel="stylesheet">
+    <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -249,7 +246,7 @@
                             <select id="disposition_staff_handed_to" name="disposition_staff_handed_to">
                                 <option value="staff1">Staff 1</option>
                                 <option value="staff2">Staff 2</option>
-                                <option value="staff3">Staff 3</option>
+                                <option value="Last Name, First Name">Name Test</option>
                             </select>
                         </div>
                         <div class="col-md-3 right_text">Time incident handed off:</div>
@@ -284,6 +281,40 @@
     </div>
     <script src="js/jquery-1.12.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/moment.min.js"></script>
+    <script src="js/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#initial_call_date').datetimepicker({
+                format: 'L'
+            });
+
+            $('#initial_call_time').datetimepicker({
+                format: 'LT'
+            });
+
+            $('#initial_call_client_dob').datetimepicker({
+                format: 'L'
+            });
+
+            $('#second_call_time').datetimepicker({
+                format: 'LT'
+            });
+
+            $('#third_call_time').datetimepicker({
+                format: 'LT'
+            });
+
+            $('#time_staff_left_scene').datetimepicker({
+                format: 'LT'
+            });
+
+            $('#time_incident_handed_off').datetimepicker({
+                format: 'LT'
+            });
+        });
+    </script>
 </body>
 
 </html>
