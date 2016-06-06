@@ -1,5 +1,3 @@
-
-
 <html lang="en">
 
 <head>
@@ -21,7 +19,7 @@
 
 <body>
     <div class="container">
-                <div class="county_logo" style="text-align: center;">
+        <div class="county_logo" style="text-align: center;">
             <img src="soc_header.png" />
         </div>
 
@@ -30,33 +28,25 @@
 	if request.querystring("submit") = "2" then
 
             emailsubject = request.form("initial_call_staff_location")
+            emailsubject = emailsubject & " - " & request.form("initial_call_date") & " - " & request.form("initial_call_soc")
 
             emailmessage = "<div style='border:1px solid black;'><b><u>Initial Call</u></b>" & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Packet:</b> " & request.form("packets_radio") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>SOC:</b> " & request.form("initial_call_soc") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>Date:</b> " & request.form("initial_call_date") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Time of 1st call to SOC:</b> " & request.form("initial_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Client Name:</b> " & request.form("initial_call_client_name") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Client's DOB:</b> " & request.form("initial_call_client_dob") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Client's Initials:</b> " & request.form("initial_call_client_initials") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Time of call to SOC:</b> " & request.form("initial_call_time") & "<br>" & vbcrlf            
             emailmessage = emailmessage & "<b>Origin of the call to CCRT:</b> " & request.form("initial_call_origin") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Client's DOB:</b> " & request.form("initial_call_client_dob") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>CCRT Field Staff:</b> " & request.form("initial_call_staff_name") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>CCRT Field Staff Location:</b> " & request.form("initial_call_staff_location") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("initial_call_staff_on_phone") & "<br></div>" & vbcrlf
-            emailmessage = emailmessage & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Second Call</u></b>" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("second_call_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Time of Call:</b> " & request.form("second_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Description of Situation:</b> " & request.form("second_call_description") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>SOC Recommendation:</b> " & request.form("second_call_soc_recommendation") & "<br></div>" & vbcrlf
-            emailmessage = emailmessage & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Third Call</u></b>" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("third_call_staff_on_phone") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Time of Call:</b> " & request.form("third_call_time") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>Description of Situation:</b> " & request.form("third_call_description") & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>SOC Recommendation:</b> " & request.form("third_call_soc_recommendation") & "<br></div>" & vbcrlf
+            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("initial_call_staff_on_phone") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Description of Situation:</b> " & request.form("initial_call_description") & "<br></div>" & vbcrlf
             emailmessage = emailmessage & "<br>" & vbcrlf
             emailmessage = emailmessage & "<div style='border:1px solid black;'><b><u>Disposition</u></b>" & "<br>" & vbcrlf
-            emailmessage = emailmessage & "<b>CCRT Staff Person on the Phone:</b> " & request.form("disposition_staff_on_phone") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>Time staff left the scene:</b> " & request.form("time_staff_left_scene") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>Disposition of Client/Incident:</b> " & request.form("disposition_of_client_incident") & "<br>" & vbcrlf
+            emailmessage = emailmessage & "<b>Incident continued to the next shift:</b> " & request.form("incident_continued") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>Incident handed off to SOC:</b> " & request.form("disposition_staff_handed_to") & "<br>" & vbcrlf
             emailmessage = emailmessage & "<b>Time incident handed off:</b> " & request.form("time_incident_handed_off") & "<br></div>" & vbcrlf
   
@@ -77,7 +67,7 @@
             SMTP.AddRecipient "Benjamin","benjamin.hager@dbh.sbcounty.gov", 1
 			'------------------------------------------------------------
 
-			SMTP.LicenseKey = "Commented out for now"
+			SMTP.LicenseKey = "San Bernardino County ISD (Single Developer)/00105404104417008f00"
 			x = SMTP.Send
 			if x > 0 then
 				sendstatus = "<div style='text-align:center;' class='alert alert-danger' role='alert'>There was a problem sending email. The error code is: " & x & "</div>"
@@ -92,114 +82,107 @@
         <form action="soc_contact.asp?submit=2" method="POST">
             <div class="panel panel-default initial_call">
                 <div class="panel-body">
+                    <div class="row">
+
+                        <div class="col-md-3 left_text">
+                            <label for="packets_radio">Packets:</label></div>
+                        <div class="col-md-2">
+                            <label>
+                                <input type="radio" name="packets_radio" id="packets_371" value="371">
+                                371 </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                <input type="radio" name="packets_radio" id="packets_560" value="560">
+                                560 </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                <input type="radio" name="packets_radio" id="packets_indirect" value="Indirect">
+                                Indirect </label>
+                        </div>
+
+                    </div>
+
                     <h4><b>Initial Call</b></h4>
-                    <div class="row">
-                        <div class="col-md-4 left_text">Client's Name:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="initial_call_client_name" name="initial_call_client_name" maxlength="50">
-                        </div>
-                        <div class="col-md-3 right_text">Date:</div>
-                        <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_date" name="initial_call_date" maxlength="15" class="soc_date">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">Origin of the call to CCRT:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="initial_call_origin" name="initial_call_origin" maxlength="50">
-                        </div>
-                        <div class="col-md-3 right_text">Time of 1st call to SOC:</div>
-                        <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_time" name="initial_call_time" maxlength="15" class="soc_time">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">CCRT Field Staff:</div>
-                        <div class="col-md-3 left_field">
-                            <select id="initial_call_staff_name" name="initial_call_staff_name" class="selectList">
-                            </select>
-                        </div>
-                        <div class="col-md-3 right_text">Client's DOB:</div>
-                        <div class="col-md-2 right_field">
-                            <input type="text" id="initial_call_client_dob" name="initial_call_client_dob" maxlength="15" class="soc_date">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">CCRT Field Staff Location:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="initial_call_staff_location" name="initial_call_staff_location" maxlength="50">
-                        </div>
-                        <div class="col-md-5">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
-                        <div class="col-md-3 left_field">
-                            <select id="initial_call_staff_on_phone" name="initial_call_staff_on_phone" class="selectList">
-                            </select>
-                        </div>
-                        <div class="col-md-5">&nbsp;</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="panel panel-default second_call">
-                <div class="panel-body">
-                    <h4><b>Second Call</b></h4>
                     <div class="row">
-                        <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
+                        <div class="col-md-4 left_text">
+                            <label>SOC:</label></div>
                         <div class="col-md-3 left_field">
-                            <select id="second_call_staff_on_phone" name="second_call_staff_on_phone" class="selectList">
-                            </select>
+                            <input type="text" id="initial_call_soc" name="initial_call_soc" maxlength="50" class="form-control">
                         </div>
-                        <div class="col-md-3 right_text">Time of Call:</div>
+                        <div class="col-md-3 right_text">
+                            <label for="initial_call_date">Date:</label></div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="second_call_time" name="second_call_time" maxlength="15" class="soc_time">
+                            <input type="text" id="initial_call_date" name="initial_call_date" maxlength="15" class="soc_date form-control">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">Description of Situation:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="second_call_description" name="second_call_description" maxlength="50">
-                        </div>
-                        <div class="col-md-5">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">SOC Recommendation:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="second_call_soc_recommendation" name="second_call_soc_recommendation" maxlength="50">
-                        </div>
-                        <div class="col-md-5">&nbsp;</div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="panel panel-default third_call">
-                <div class="panel-body">
-                    <h4><b>Third Call</b></h4>
                     <div class="row">
-                        <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_client_name">Client's Initials:</label></div>
                         <div class="col-md-3 left_field">
-                            <select id="third_call_staff_on_phone" name="third_call_staff_on_phone" class="selectList">
+                            <input type="text" id="initial_call_client_initials" name="initial_call_client_initials" maxlength="10" class="form-control">
+                        </div>
+                        <div class="col-md-3 right_text">
+                            <label for="initial_call_time">Time of call to SOC:</label></div>
+                        <div class="col-md-2 right_field">
+                            <input type="text" id="initial_call_time" name="initial_call_time" maxlength="15" class="soc_time form-control">
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_origin">Origin of the call to CCRT:</label></div>
+                        <div class="col-md-3 left_field">
+                            <input type="text" id="initial_call_origin" name="initial_call_origin" maxlength="50" class="form-control">
+                        </div>
+                        <div class="col-md-3 right_text">
+                            <label for="initial_call_client_dob">Client's DOB:</label></div>
+                        <div class="col-md-2 right_field">
+                            <input type="text" id="initial_call_client_dob" name="initial_call_client_dob" maxlength="15" class="form-control">
+                        </div>
+                        
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_staff_name">CCRT Field Staff:</label></div>
+                        <div class="col-md-3 left_field">
+                            <select id="initial_call_staff_name" name="initial_call_staff_name" class="selectList form-control">
                             </select>
                         </div>
-                        <div class="col-md-3 right_text">Time of Call:</div>
-                        <div class="col-md-2 right_field">
-                            <input type="text" id="third_call_time" name="third_call_time" maxlength="15" class="soc_time">
-                        </div>
+                        <div class="col-md-5">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 left_text">Description of Situation:</div>
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_staff_location">CCRT Field Staff Location:</label></div>
                         <div class="col-md-3 left_field">
-                            <input type="text" id="third_call_description" name="third_call_description" maxlength="50">
+                            <select id="initial_call_staff_location" name="initial_call_staff_location" class="form-control">
+                                <option>East Valley</option>
+                                <option>West Valley</option>
+                                <option>High Desert</option>
+                                <option>Morongo Basin</option>
+                            </select>
+
                         </div>
                         <div class="col-md-5">&nbsp;</div>
                     </div>
                     <div class="row">
-                        <div class="col-md-4 left_text">SOC Recommendation:</div>
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_staff_on_phone">CCRT Staff Person on the Phone:</label></div>
                         <div class="col-md-3 left_field">
-                            <input type="text" id="third_call_soc_recommendation" name="third_call_soc_recommendation" maxlength="50">
+                            <select id="initial_call_staff_on_phone" name="initial_call_staff_on_phone" class="selectList form-control">
+                            </select>
                         </div>
                         <div class="col-md-5">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text">
+                            <label for="initial_call_description">Description of Situation:</label></div>
+                        <div class="col-md-8 right_field">
+                            <textarea id="initial_call_description" name="initial_call_description" rows="5" maxlength="500" class="form-control"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -208,36 +191,44 @@
                 <div class="panel-body">
                     <h4><b>Disposition</b></h4>
                     <div class="row">
-                        <div class="col-md-4 left_text">CCRT Staff Person on the Phone:</div>
+                        <div class="col-md-7">&nbsp</div>
+                        <div class="col-md-3 right_text">
+                            <label for="time_staff_left_scene">Time staff left the scene:</label></div>
+                        <div class="col-md-2 right_field">
+                            <input type="text" id="time_staff_left_scene" name="time_staff_left_scene" maxlength="15" class="soc_time form-control">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text">
+                            <label for="disposition_of_client_incident">Disposition of Client/Incident:</label></div>
+                        <div class="col-md-8 right_field">
+                            <textarea id="disposition_of_client_incident" name="disposition_of_client_incident" rows="5" maxlength="500" class="form-control"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text">
+                            <label for="incident_continued">Incident continued to the next shift:</label></div>
+                        <div class="col-md-2">
+                            <label>
+                                <input type="radio" name="incident_continued" id="incident_continued_yes" value="Yes">
+                                Yes </label>
+                        </div>
+                        <div class="col-md-2">
+                            <label>
+                                <input type="radio" name="incident_continued" id="incident_continued_no" value="No">
+                                No </label>
+                        </div>
+                        <div class="col-md-4">&nbsp;</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4 left_text"><label for="disposition_staff_handed_to">Incident handed off to SOC:</label></div>
                         <div class="col-md-3 left_field">
-                            <select id="disposition_staff_on_phone" name="disposition_staff_on_phone" class="selectList">
+                            <select id="disposition_staff_handed_to" name="disposition_staff_handed_to" class="selectList form-control">
                             </select>
                         </div>
-                        <div class="col-md-3 right_text">Time staff left the scene:</div>
+                        <div class="col-md-3 right_text"><label for="time_incident_handed_off">Time incident handed off:</label></div>
                         <div class="col-md-2 right_field">
-                            <input type="text" id="time_staff_left_scene" name="time_staff_left_scene" maxlength="15" class="soc_time">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">Disposition of Client/Incident:</div>
-                        <div class="col-md-3 left_field">
-                            <input type="text" id="disposition_of_client_incident" name="disposition_of_client_incident" maxlength="50">
-                        </div>
-                        <div class="col-md-5">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5 left_text">If incident continued to the next shift:</div>
-                        <div class="col-md-7">&nbsp;</div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-4 left_text">Incident handed off to SOC:</div>
-                        <div class="col-md-3 left_field">
-                            <select id="disposition_staff_handed_to" name="disposition_staff_handed_to" class="selectList">
-                            </select>
-                        </div>
-                        <div class="col-md-3 right_text">Time incident handed off:</div>
-                        <div class="col-md-2 right_field">
-                            <input type="text" id="time_incident_handed_off" name="time_incident_handed_off" maxlength="15" class="soc_time">
+                            <input type="text" id="time_incident_handed_off" name="time_incident_handed_off" maxlength="15" class="soc_time form-control">
                         </div>
                     </div>
                 </div>
@@ -270,7 +261,7 @@
     <script src="js/moment.min.js"></script>
     <script src="js/bootstrap-datetimepicker.min.js"></script>
     <script src="js/dropdown.js"></script>
-    
+
 </body>
 
 </html>
